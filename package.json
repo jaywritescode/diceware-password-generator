@@ -1,0 +1,10 @@
+{
+  "name": "diceware-password",
+  "version": "1.0.0",
+  "description": "a password-creating chrome extension",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jay harris",
+  "license": "MIT"
+}
