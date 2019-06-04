@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "a password-creating chrome extension",
   "scripts": {
+    "dev": "parcel app/*.html --log-level 4",
+    "build": "parcel build app/*.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jay harris",
   "license": "MIT",
   "dependencies": {
     "bulma": "^0.7.5"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.20.3"
   }
 }
