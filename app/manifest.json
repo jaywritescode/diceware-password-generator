@@ -1,6 +1,10 @@
 {
-    "name": "Diceware Password",
-    "version": "1.0.0",
-    "description": "a password-creating chrome extension",
-    "manifest_version": 2
+  "name": "Diceware Password",
+  "version": "1.0.0",
+  "description": "a password-creating chrome extension",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_title": "diceware password",
+    "default_popup": "popup.html"
+  }
 }
