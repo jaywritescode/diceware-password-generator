@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './index.js',
@@ -34,6 +35,13 @@ module.exports = {
       hash: true,
       template: './app/popup.html',
       filename: 'popup.html',
-    })
+    }),
+    new CopyPlugin([
+      {
+        test: /manifest\.json/,
+        from: './app',
+        to: '.',
+      }
+    ]),
   ],
 };
