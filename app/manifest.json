@@ -1,0 +1,6 @@
+{
+    "name": "Diceware Password",
+    "version": "1.0.0",
+    "description": "a password-creating chrome extension",
+    "manifest_version": 2
+}
