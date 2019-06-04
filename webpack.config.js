@@ -38,8 +38,7 @@ module.exports = {
     }),
     new CopyPlugin([
       {
-        test: /manifest\.json/,
-        from: './app',
+        from: './app/manifest.json',
         to: '.',
       }
     ]),
