@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "a password-creating chrome extension",
   "scripts": {
-    "dev": "parcel app/*.html --log-level 4",
-    "build": "parcel build app/*.html",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jay harris",
