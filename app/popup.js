@@ -17,4 +17,9 @@ function getWords(cb) {
   });
 }
 
-getWords((x) => console.log(x));
+function setPasswordField(text) {
+  const passwordEl = document.querySelector('#password');
+  passwordEl.value = text;
+}
+
+getWords(setPasswordField);
