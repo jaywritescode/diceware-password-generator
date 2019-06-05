@@ -11,9 +11,8 @@ const WORD_LIST_FILENAMES = ['eff_large_wordlist.txt', 'eff_short_wordlist_1.txt
 const getWordList = (url) => {
   fetch(url)
     .then(response => response.text()
-      .then((text) => {
-        const words = _.fromPairs(text.split("\n").map(line => line.split(' ')));
-
+      .then(text => {
+        const words = _(text.split("\n")).map(line => line.split(' ')).fromPairs;
         chrome.storage.local.set({
           [LOCAL_STORAGE_KEY]: {
             large_wordlist: words,
