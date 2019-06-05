@@ -3,24 +3,32 @@ import _ from 'lodash';
 
 import { LOCAL_STORAGE_KEY } from './shared/constants';
 
-function roll(dice = 5) {
-  let array = new Uint8Array(dice);
-  window.crypto.getRandomValues(array);
-  return array.map(i => (i % 6) + 1).join('');
+const init = () => {
+  
+  // add event listeners
+  document.querySelector('#refresh').addEventListener('click', () => getWords(setPasswordField));
+
+  const roll = (dice = 5) => {
+    let array = new Uint8Array(dice);
+    window.crypto.getRandomValues(array);
+    return array.map(i => (i % 6) + 1).join('');
+  }
+  
+  const getWords = (callback, count = 5) => {
+    chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
+      const wordMap = result[LOCAL_STORAGE_KEY]['large_wordlist'];
+      const words = _.times(count, () => wordMap[roll()]);
+      callback.call(null, words);
+    });
+  }
+
+  // TODO: format the text appropriately somewhere else
+  const setPasswordField = (text) => {
+    const passwordEl = document.querySelector('#password');
+    passwordEl.value = text;
+  }
+
+  getWords(setPasswordField);
 };
 
-function getWords(cb) {
-  chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
-    const wordMap = result[LOCAL_STORAGE_KEY]['large_wordlist'];
-    const words = _.times(5, () => wordMap[roll()]);
-    cb.call(null, words);
-  });
-}
-
-// TODO: format the text appropriately somewhere else
-function setPasswordField(text) {
-  const passwordEl = document.querySelector('#password');
-  passwordEl.value = text;
-}
-
-document.addEventListener('DOMContentLoaded', () => getWords(setPasswordField));
+document.addEventListener('DOMContentLoaded', init);
