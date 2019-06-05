@@ -7,6 +7,9 @@ const init = () => {
   
   // add event listeners
   document.querySelector('#refresh').addEventListener('click', () => getWords(setPasswordField));
+  document.querySelector('#copy').addEventListener('click', () => {
+    window.navigator.clipboard.writeText(document.getElementById('password').value);
+  });
 
   const roll = (dice = 5) => {
     let array = new Uint8Array(dice);
