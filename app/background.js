@@ -1,8 +1,5 @@
 import _ from 'lodash';
-
-const NS = 'jaywritescode';
-const EXT_NAME = 'diceware-password';
-const LOCAL_STORAGE_KEY = `${NS}:${EXT_NAME}`;
+import { LOCAL_STORAGE_KEY } from './shared/constants';
 
 chrome.runtime.onInstalled.addListener(() => getWordList(`data/${WORD_LIST_FILENAMES[0]}`))
 
