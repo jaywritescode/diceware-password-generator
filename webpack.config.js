@@ -44,7 +44,11 @@ module.exports = {
       {
         from: './app/manifest.json',
         to: '.',
-      }
+      },
+      {
+        from: './app/data',
+        to: 'data',
+      },
     ]),
   ],
 };
