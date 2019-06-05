@@ -1,2 +1,8 @@
 @import './main.scss';
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
+
+#password {
+  font-family: Inconsolata, monospace;
+  width: 22rem;
+}
