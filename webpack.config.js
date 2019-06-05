@@ -4,9 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './index.js',
+  entry: {
+    popup: './app/popup.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
   },
   module: {
     rules: [{
@@ -26,6 +29,7 @@ module.exports = {
       ]
     }]
   },
+  devtool: 'cheap-module-source-map',
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'main.css'
