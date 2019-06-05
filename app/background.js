@@ -9,7 +9,7 @@ const getWordList = (url) => {
   fetch(url)
     .then(response => response.text()
       .then(text => {
-        const words = _(text.split("\n")).map(line => line.split(' ')).fromPairs;
+        const words = _(text).split("\n").map(line => line.split(' ')).fromPairs().value();
         chrome.storage.local.set({
           [LOCAL_STORAGE_KEY]: {
             large_wordlist: words,
