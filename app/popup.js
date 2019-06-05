@@ -17,9 +17,10 @@ function getWords(cb) {
   });
 }
 
+// TODO: format the text appropriately somewhere else
 function setPasswordField(text) {
   const passwordEl = document.querySelector('#password');
   passwordEl.value = text;
 }
 
-getWords(setPasswordField);
+document.addEventListener('DOMContentLoaded', () => getWords(setPasswordField));
