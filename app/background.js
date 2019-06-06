@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import { LOCAL_STORAGE_KEY } from './shared/constants';
-
-const WORD_LIST_FILENAMES = ['eff_large_wordlist.txt', 'eff_short_wordlist_1.txt'];
+import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (var key in changes) {
