@@ -31,12 +31,10 @@ const handleInstalled = async () => {
     return _(text).split("\n").map(line => line.split(' ')).fromPairs().value();
   };
 
-  Promise.all([
-    installWordList(WORD_LIST_FILENAMES[0]),
-    installWordList(WORD_LIST_FILENAMES[1]),
-  ]).then(entries => chrome.storage.local.set({
-    [LOCAL_STORAGE_KEY]: Object.assign({}, ...entries),
-  }));
+  Promise.all(WORD_LIST_FILENAMES.map(filename => installWordList(filename)))
+    .then(entries => chrome.storage.local.set({
+      [LOCAL_STORAGE_KEY]: Object.assign({}, ...entries),
+    }));
 };
 
 chrome.runtime.onInstalled.addListener(handleInstalled);
