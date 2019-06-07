@@ -1,5 +1,7 @@
 import './styles/popup.scss';
 import _ from 'lodash';
+import React from 'react';
+import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
 
 import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 

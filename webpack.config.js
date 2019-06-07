@@ -12,12 +12,14 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
+  resolve: {
+    alias: {
+      '_variables.sass': path.resolve(__dirname, 'app/styles/_variables.sass'),
+    },
+  },
   module: {
     rules: [{
-      test: /\.scss$/,
-      include: [
-        path.resolve(__dirname, 'app/styles')
-      ],
+      test: /\.s(a|c)ss$/,
       use: [
         MiniCssExtractPlugin.loader,
         'css-loader',
