@@ -7,9 +7,9 @@
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/jaywritescode/diceware-password-generator",
   "author": "jay harris",
   "license": "MIT",
+  "repository": "github:jaywritescode/diceware-password-generator",
   "dependencies": {
     "bulma": "^0.7.5",
     "lodash": "^4.17.11"
