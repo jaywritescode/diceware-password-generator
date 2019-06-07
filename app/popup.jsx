@@ -7,6 +7,7 @@ import { Field, Control, Input } from 'react-bulma-components/lib/components/for
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
+import Icon from 'react-bulma-components/lib/components/icon';
 
 import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
@@ -18,7 +19,26 @@ function PasswordDisplay(props) {
       <Control>
         <Input type='text' value={passphrase} readOnly={true} id='password' />
       </Control>
+      <Control>
+        <CopyButton passphrase={passphrase} />
+      </Control>
     </Field>
+  )
+}
+
+function CopyButton(props) {
+  const { passphrase } = props;
+
+  const handleClick = () => {
+    window.navigator.clipboard.writeText(passphrase);
+  }
+
+  return (
+    <Button id='copy' renderAs='a' onClick={handleClick}>
+      <Icon>
+        <span className="far fa-copy" />
+      </Icon>
+    </Button>
   )
 }
 
