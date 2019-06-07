@@ -6,14 +6,17 @@ import ReactDOM from 'react-dom';
 import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
+import Button from 'react-bulma-components/lib/components/button';
 
 import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
 function PasswordDisplay(props) {
+  const { passphrase } = props;
+
   return (
     <Field kind='addons'>
       <Control>
-        <Input type='text' value={props.passphrase} readOnly={true} />
+        <Input type='text' value={passphrase} readOnly={true} />
       </Control>
     </Field>
   )
@@ -23,7 +26,9 @@ class Popup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'wordlist': WORD_LIST_FILENAMES[0],
+      wordlist: WORD_LIST_FILENAMES[0],
+      chosenWords: [],
+      passphrase: '',
     };
     this.fetchWords();
   }
@@ -39,9 +44,14 @@ class Popup extends React.Component {
       const wordMap = result[LOCAL_STORAGE_KEY][this.state.wordlist];
       const words = _.times(count, () => wordMap[this.roll()]);
       this.setState({
-        passphrase: words
+        chosenWords: words,
+        passphrase: this.transform(words),
       });
     });
+  }
+
+  transform(words) {
+    return words.join(' ');
   }
 
   /**
