@@ -71,6 +71,11 @@ class Popup extends React.Component {
       <Section>
         <Container>
           <PasswordDisplay passphrase={this.state.passphrase} />
+          <Field>
+            <Control>
+              <Button onClick={() => this.fetchWords()}>Get Password</Button>
+            </Control>
+          </Field>
         </Container>
       </Section>
     );
@@ -93,4 +98,4 @@ class Popup extends React.Component {
 // };
 
 document.addEventListener(
-  'DOMContentLoaded', () => ReactDOM.render(<Popup />, document.body));
+  'DOMContentLoaded', () => ReactDOM.render(<Popup />, document.getElementById('app')));
