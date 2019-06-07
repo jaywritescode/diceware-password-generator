@@ -102,20 +102,5 @@ class Popup extends React.Component {
   }
 }
 
-// const init = () => {
-  
-//   // add event listeners
-//   document.querySelector('#refresh').addEventListener('click', () => getWords(setPasswordField));
-//   document.querySelector('#copy').addEventListener('click', () => {
-//     window.navigator.clipboard.writeText(document.getElementById('password').value);
-//   });
-
-//   // TODO: format the text appropriately somewhere else
-//   const setPasswordField = (text) => {
-//     const passwordEl = document.querySelector('#password');
-//     passwordEl.value = text;
-//   }
-// };
-
 document.addEventListener(
   'DOMContentLoaded', () => ReactDOM.render(<Popup />, document.getElementById('app')));
