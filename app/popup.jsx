@@ -9,16 +9,14 @@ import Container from 'react-bulma-components/lib/components/container';
 
 import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
-class PasswordDisplay extends React.Component {
-  render() {
-    return (
-      <Field kind='addons'>
-        <Control>
-          <Input type='text' value={this.props.passphrase} readOnly={true} />
-        </Control>
-      </Field>
-    )
-  }
+function PasswordDisplay(props) {
+  return (
+    <Field kind='addons'>
+      <Control>
+        <Input type='text' value={props.passphrase} readOnly={true} />
+      </Control>
+    </Field>
+  )
 }
 
 class Popup extends React.Component {
