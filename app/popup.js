@@ -1,7 +1,7 @@
 import './styles/popup.scss';
 import _ from 'lodash';
 
-import { LOCAL_STORAGE_KEY } from './shared/constants';
+import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
 const init = () => {
   
@@ -31,7 +31,7 @@ const init = () => {
    */
   const getWords = (callback, count = 5) => {
     chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
-      const wordMap = result[LOCAL_STORAGE_KEY]['large_wordlist'];
+      const wordMap = result[LOCAL_STORAGE_KEY][WORD_LIST_FILENAMES[0]];
       const words = _.times(count, () => wordMap[roll()]);
       callback.call(null, words);
     });
