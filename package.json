@@ -12,7 +12,8 @@
   "repository": "github:jaywritescode/diceware-password-generator",
   "dependencies": {
     "bulma": "^0.7.5",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "react-bulma-components": "^3.0.1-6"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
