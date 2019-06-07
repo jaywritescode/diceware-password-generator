@@ -5,7 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    popup: './app/popup.js',
+    popup: './app/popup.jsx',
     background: './app/background.js',
   },
   output: {
@@ -31,6 +31,10 @@ module.exports = {
           }
         }
       ]
+    }, {
+      test: /\.jsx$/,
+      exclude: /node_modules/,
+      use: ['babel-loader'],
     }, {
       test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
       loader: 'url-loader',
