@@ -11,12 +11,24 @@ const init = () => {
     window.navigator.clipboard.writeText(document.getElementById('password').value);
   });
 
+  /**
+   * Simulates rolling a given number of six-sided dice.
+   * 
+   * @param {integer} [dice=5] - the number of dice to roll
+   * @return {integer[]} an array of d6 rolls  
+   */
   const roll = (dice = 5) => {
     let array = new Uint8Array(dice);
     window.crypto.getRandomValues(array);
     return array.map(i => (i % 6) + 1).join('');
   }
   
+  /**
+   * Chooses words at random from the word list.
+   * 
+   * @param {function(string[]):void} callback - the consumer for the randomly chosen words
+   * @param {integer} count - the number of words in the passphrase 
+   */
   const getWords = (callback, count = 5) => {
     chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
       const wordMap = result[LOCAL_STORAGE_KEY]['large_wordlist'];
