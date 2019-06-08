@@ -5,6 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
+    'react-devtools': 'react-devtools',
     popup: './app/popup.jsx',
     background: './app/background.js',
   },
