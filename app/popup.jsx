@@ -9,6 +9,7 @@ import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
 import Icon from 'react-bulma-components/lib/components/icon';
+import Columns from 'react-bulma-components/lib/components/columns';
 
 import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
 
@@ -100,11 +101,20 @@ class Popup extends React.Component {
       <Section>
         <Container>
           <PasswordDisplay passphrase={this.state.passphrase} />
-          <Field>
-            <Control>
-              <Button onClick={() => this.fetchWords()}>Get Password</Button>
-            </Control>
-          </Field>
+
+          <Columns>
+            <Columns.Column>
+              <Field>
+                <Control>
+                  <Button onClick={() => this.fetchWords()}>Get Password</Button>
+                </Control>
+              </Field>  
+            </Columns.Column>
+            <Columns.Column>
+              <p>test test</p>
+            </Columns.Column>
+          </Columns>
+          
         </Container>
       </Section>
     );
