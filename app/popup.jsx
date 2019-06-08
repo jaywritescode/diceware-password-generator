@@ -2,6 +2,7 @@ import './styles/popup.scss';
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
@@ -26,6 +27,10 @@ function PasswordDisplay(props) {
   )
 }
 
+PasswordDisplay.propTypes = {
+  passphrase: PropTypes.string.isRequired,
+};
+
 function CopyButton(props) {
   const { passphrase } = props;
 
@@ -41,6 +46,10 @@ function CopyButton(props) {
     </Button>
   )
 }
+
+CopyButton.propTypes = {
+  passphrase: PropTypes.string.isRequired,
+};
 
 class Popup extends React.Component {
   constructor(props) {
