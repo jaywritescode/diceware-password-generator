@@ -96,6 +96,13 @@ class Popup extends React.Component {
     return array.map(i => (i % 6) + 1).join('');
   }
 
+  handleRadioChange(evt) {
+    const { name, value } = evt.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
     const { passphrase, wordlist } = this.state;
 
@@ -119,7 +126,7 @@ class Popup extends React.Component {
                     return (
                       <Radio
                         name="wordlist"
-                        onChange={(e) => this.onRadioChange(e)}
+                        onChange={(e) => this.handleRadioChange(e)}
                         checked={wordlist === name}
                         value={name}
                         key={name}
