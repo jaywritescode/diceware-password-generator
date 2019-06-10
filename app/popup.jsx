@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { Field, Control, Input, Radio } from 'react-bulma-components/lib/components/form';
+import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
@@ -52,6 +52,19 @@ CopyButton.propTypes = {
   passphrase: PropTypes.string.isRequired,
 };
 
+function Radio(props) {
+  const { name, value, checked, onChange, children } = props;
+
+  return (
+    <>
+      <input type="radio" id={value} className="is-checkradio" name={name} checked={checked} onChange={onChange} />
+      <label htmlFor={value}>
+        {children}
+      </label>
+    </>
+  );
+}
+
 class Popup extends React.Component {
   constructor(props) {
     super(props);
@@ -97,9 +110,9 @@ class Popup extends React.Component {
   }
 
   handleRadioChange(evt) {
-    const { name, value } = evt.target;
+    const { name, id } = evt.target;
     this.setState({
-      [name]: value
+      [name]: id
     });
   }
 
