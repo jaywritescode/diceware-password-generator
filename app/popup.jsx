@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
+import { Field, Control, Input, Radio } from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
@@ -97,12 +97,14 @@ class Popup extends React.Component {
   }
 
   render() {
+    const { passphrase, wordlist } = this.state;
+
     return (
       <Section>
         <Container>
-          <PasswordDisplay passphrase={this.state.passphrase} />
+          <PasswordDisplay passphrase={passphrase} />
 
-          <Columns>
+          <Columns breakpoint='mobile'>
             <Columns.Column>
               <Field>
                 <Control>
@@ -111,10 +113,25 @@ class Popup extends React.Component {
               </Field>  
             </Columns.Column>
             <Columns.Column>
-              <p>test test</p>
+              <Field>
+                <Control>
+                  {_.zip(['standard', 'short'], WORD_LIST_FILENAMES).map(([text, name]) => {
+                    return (
+                      <Radio
+                        name="wordlist"
+                        onChange={(e) => this.onRadioChange(e)}
+                        checked={wordlist === name}
+                        value={name}
+                        key={name}
+                      >
+                        {text}
+                      </Radio>
+                    );
+                  })}
+                </Control>
+              </Field>
             </Columns.Column>
           </Columns>
-          
         </Container>
       </Section>
     );
