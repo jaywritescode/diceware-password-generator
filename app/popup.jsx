@@ -11,7 +11,7 @@ import Button from 'react-bulma-components/lib/components/button';
 import Icon from 'react-bulma-components/lib/components/icon';
 import Columns from 'react-bulma-components/lib/components/columns';
 
-import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
+import { LOCAL_STORAGE_KEY, WORD_LISTS } from './shared/constants';
 
 function PasswordDisplay(props) {
   const { passphrase } = props;
@@ -65,14 +65,30 @@ function Radio(props) {
   );
 }
 
+/**
+ * Simulates rolling a given number of six-sided dice.
+ * 
+ * @param {integer} - the number of dice to roll
+ * @return {integer[]} an array of d6 rolls  
+ */
+function roll(dice) {
+  let array = new Uint8Array(dice);
+  window.crypto.getRandomValues(array);
+  return array.map(i => (i % 6) + 1).join('');
+}
+
 class Popup extends React.Component {
   constructor(props) {
     super(props);
+    
+    const { name: wordsFile, dice, } = WORD_LISTS[0];
     this.state = {
-      wordlist: WORD_LIST_FILENAMES[0],
       chosenWords: [],
       passphrase: '',
+      wordsFile,
+      dice
     };
+    
     this.fetchWords();
   }
 
@@ -83,9 +99,12 @@ class Popup extends React.Component {
    * @param {integer} count - the number of words in the passphrase 
    */
   fetchWords(count = 5) {
+    const { wordsFile, dice } = this.state;
+
     chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
-      const wordMap = result[LOCAL_STORAGE_KEY][this.state.wordlist];
-      const words = _.times(count, () => wordMap[this.roll()]);
+      const wordsMap = result[LOCAL_STORAGE_KEY][wordsFile];
+      const words = _.times(count, () => wordsMap[roll(dice)]);
+
       this.setState({
         chosenWords: words,
         passphrase: this.transform(words),
@@ -97,18 +116,6 @@ class Popup extends React.Component {
     return words.join(' ');
   }
 
-  /**
-   * Simulates rolling a given number of six-sided dice.
-   * 
-   * @param {integer} [dice=5] - the number of dice to roll
-   * @return {integer[]} an array of d6 rolls  
-   */
-  roll(dice = 5) {
-    let array = new Uint8Array(dice);
-    window.crypto.getRandomValues(array);
-    return array.map(i => (i % 6) + 1).join('');
-  }
-
   handleRadioChange(evt) {
     const { name, id } = evt.target;
     this.setState({
@@ -117,7 +124,7 @@ class Popup extends React.Component {
   }
 
   render() {
-    const { passphrase, wordlist } = this.state;
+    const { passphrase, wordsFile } = this.state;
 
     return (
       <Section>
@@ -135,12 +142,15 @@ class Popup extends React.Component {
             <Columns.Column>
               <Field>
                 <Control>
-                  {_.zip(['standard', 'short'], WORD_LIST_FILENAMES).map(([text, name]) => {
+                  {WORD_LISTS.map(({ text, name, dice }) => {
                     return (
                       <Radio
-                        name="wordlist"
-                        onChange={(e) => this.handleRadioChange(e)}
-                        checked={wordlist === name}
+                        name="wordsFile"
+                        onChange={() => this.setState({
+                          wordsFile: name,
+                          dice,
+                        })}
+                        checked={wordsFile === name}
                         value={name}
                         key={name}
                       >

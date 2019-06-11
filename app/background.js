@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { LOCAL_STORAGE_KEY, WORD_LIST_FILENAMES } from './shared/constants';
+import { LOCAL_STORAGE_KEY, WORD_LISTS } from './shared/constants';
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (var key in changes) {
@@ -29,7 +29,7 @@ const handleInstalled = async () => {
     return _(text).split("\n").map(line => line.split(' ')).fromPairs().value();
   };
 
-  Promise.all(WORD_LIST_FILENAMES.map(filename => installWordList(filename)))
+  Promise.all(WORD_LISTS.map(data => installWordList(_.get(data, 'name'))))
     .then(entries => chrome.storage.local.set({
       [LOCAL_STORAGE_KEY]: Object.assign({}, ...entries),
     }));
