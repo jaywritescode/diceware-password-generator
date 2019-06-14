@@ -12,6 +12,7 @@ import Icon from 'react-bulma-components/lib/components/icon';
 import Columns from 'react-bulma-components/lib/components/columns';
 
 import { LOCAL_STORAGE_KEY, WORD_LISTS } from './shared/constants';
+import { roll } from './shared/utils';
 
 function PasswordDisplay(props) {
   const { passphrase } = props;
@@ -65,18 +66,6 @@ function Radio(props) {
   );
 }
 
-/**
- * Simulates rolling a given number of six-sided dice.
- * 
- * @param {integer} - the number of dice to roll
- * @return {integer[]} an array of d6 rolls  
- */
-function roll(dice) {
-  let array = new Uint8Array(dice);
-  window.crypto.getRandomValues(array);
-  return array.map(i => (i % 6) + 1).join('');
-}
-
 class Popup extends React.Component {
   constructor(props) {
     super(props);
@@ -88,7 +77,9 @@ class Popup extends React.Component {
       wordsFile,
       dice
     };
-    
+  }
+
+  componentDidMount() {
     this.fetchWords();
   }
 
