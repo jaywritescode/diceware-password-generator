@@ -14,65 +14,13 @@ import Columns from 'react-bulma-components/lib/components/columns';
 import { LOCAL_STORAGE_KEY, WORD_LISTS } from './shared/constants';
 import { roll } from './shared/utils';
 
-function PasswordDisplay(props) {
-  const { passphrase } = props;
 
-  return (
-    <Field kind='addons'>
-      <Control>
-        <Input 
-          type='text' 
-          value={passphrase} 
-          readOnly={true} 
-          id='password'
-          data-test='password-field'
-        />
-      </Control>
-      <Control>
-        <CopyButton passphrase={passphrase} />
-      </Control>
-    </Field>
-  )
-}
-
-PasswordDisplay.propTypes = {
-  passphrase: PropTypes.string.isRequired,
-};
-
-function CopyButton(props) {
-  const { passphrase } = props;
-
-  const handleClick = () => {
-    window.navigator.clipboard.writeText(passphrase);
-  }
-
-  return (
-    <Button id='copy' renderAs='a' onClick={handleClick}>
-      <Icon>
-        <span className="far fa-copy" />
-      </Icon>
-    </Button>
-  )
-}
-
-CopyButton.propTypes = {
-  passphrase: PropTypes.string.isRequired,
-};
-
-function Radio(props) {
-  const { name, value, checked, onChange, children } = props;
-
-  return (
-    <>
-      <input type="radio" id={value} className="is-checkradio" name={name} checked={checked} onChange={onChange} />
-      <label htmlFor={value}>
-        {children}
-      </label>
-    </>
-  );
-}
-
-class Popup extends React.Component {
+/*
+ *
+ * App is the root component of the popup.html page.
+ *
+ */
+class App extends React.Component {
   constructor(props) {
     super(props);
     
@@ -90,7 +38,7 @@ class Popup extends React.Component {
   }
 
   /**
-   * Chooses words at random from the word list.
+   * Choose words at random from the word list.
    * 
    * @param {function(string[]):void} callback - the consumer for the randomly chosen words
    * @param {integer} count - the number of words in the passphrase 
@@ -111,13 +59,6 @@ class Popup extends React.Component {
 
   transform(words) {
     return words.join(' ');
-  }
-
-  handleRadioChange(evt) {
-    const { name, id } = evt.target;
-    this.setState({
-      [name]: id
-    });
   }
 
   render() {
@@ -165,5 +106,74 @@ class Popup extends React.Component {
   }
 }
 
+/*
+ *
+ * PasswordDisplay is a read-only input component that shows the randomly chosen
+ * passphrase and also a button to copy the passphrase to the clipboard.
+ *
+ */
+function PasswordDisplay(props) {
+  const { passphrase } = props;
+
+  return (
+    <Field kind='addons'>
+      <Control>
+        <Input 
+          type='text' 
+          value={passphrase} 
+          readOnly={true} 
+          id='password'
+          data-test='password-field'
+        />
+      </Control>
+      <Control>
+        <CopyButton passphrase={passphrase} />
+      </Control>
+    </Field>
+  )
+}
+
+PasswordDisplay.propTypes = {
+  passphrase: PropTypes.string.isRequired,
+};
+
+/*
+ *
+ * CopyButton is a button that, when clicked, copies the passphrase to the clipbaord.
+ *
+ */
+function CopyButton(props) {
+  const { passphrase } = props;
+
+  const handleClick = () => {
+    window.navigator.clipboard.writeText(passphrase);
+  }
+
+  return (
+    <Button id='copy' renderAs='a' onClick={handleClick}>
+      <Icon>
+        <span className="far fa-copy" />
+      </Icon>
+    </Button>
+  )
+}
+
+CopyButton.propTypes = {
+  passphrase: PropTypes.string.isRequired,
+};
+
+function Radio(props) {
+  const { name, value, checked, onChange, children } = props;
+
+  return (
+    <>
+      <input type="radio" id={value} className="is-checkradio" name={name} checked={checked} onChange={onChange} />
+      <label htmlFor={value}>
+        {children}
+      </label>
+    </>
+  );
+}
+
 document.addEventListener(
-  'DOMContentLoaded', () => ReactDOM.render(<Popup />, document.getElementById('app')));
+  'DOMContentLoaded', () => ReactDOM.render(<App />, document.getElementById('app')));
