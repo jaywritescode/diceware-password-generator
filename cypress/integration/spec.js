@@ -17,15 +17,29 @@ describe('App', function() {
           },
         });
 
-        cy.stub(win.crypto, 'getRandomValues').callsFake(function(array) {
-          // this does nothing
-          array = Uint8Array.of(1,2,3,4,5);
-        });
+        const stubFnForGetRandomValues = () => {
+          const arrs = [
+            Uint8Array.of(0, 0, 0, 0, 0),
+            Uint8Array.of(0, 1, 2, 3, 4),
+            Uint8Array.of(1, 2, 3, 4, 5),
+            Uint8Array.of(5, 4, 3, 2, 1),
+            Uint8Array.of(5, 5, 5, 5, 5)
+          ];
+        
+          return (arr) => {
+            const replacement = arrs.shift();
+            for (let i = replacement.length - 1; i >= 0; --i) {
+              arr[i] = replacement[i];
+            };
+          };
+        };
+        cy.stub(win.crypto, 'getRandomValues').callsFake(stubFnForGetRandomValues());
       }
     });
   });
 
-  it('does something', function() {
-    
+  it('renders', function() {
+    cy.get('#app').should('exist');
+    cy.get('[data-test=password-field]').should('exist');
   });
 });

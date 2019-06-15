@@ -20,7 +20,13 @@ function PasswordDisplay(props) {
   return (
     <Field kind='addons'>
       <Control>
-        <Input type='text' value={passphrase} readOnly={true} id='password' />
+        <Input 
+          type='text' 
+          value={passphrase} 
+          readOnly={true} 
+          id='password'
+          data-test='password-field'
+        />
       </Control>
       <Control>
         <CopyButton passphrase={passphrase} />
