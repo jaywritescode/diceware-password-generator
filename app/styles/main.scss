@@ -2,3 +2,28 @@
 
 @import "~react-bulma-components/src/index.sass";
 @import "~bulma-extensions/bulma-checkradio/src/sass/index.sass";
+
+// This is a workaround because Bulma only applies the .is-horizontal style
+// to tablet and above size viewports.
+.field.is-horizontal {
+  display: flex;
+}
+
+.field-label {
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin-right: 1.5rem;
+  text-align: right;
+
+  &.is-normal {
+    padding-top: 0.375rem;
+  }
+}
+
+.field-body {
+  display: flex;
+  flex-basis: 0;
+  flex-grow: 5;
+  flex-shrink: 1;
+}

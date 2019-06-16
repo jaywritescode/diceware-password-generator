@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { Field, Control, Input } from 'react-bulma-components/lib/components/form';
+import { Field, Control, Input, Label } from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
@@ -28,6 +28,7 @@ class App extends React.Component {
     this.state = {
       chosenWords: [],
       passphrase: '',
+      numWords: 5,
       wordsFile,
       dice
     };
@@ -43,12 +44,12 @@ class App extends React.Component {
    * @param {function(string[]):void} callback - the consumer for the randomly chosen words
    * @param {integer} count - the number of words in the passphrase 
    */
-  fetchWords(count = 5) {
-    const { wordsFile, dice } = this.state;
+  fetchWords() {
+    const { wordsFile, dice, numWords } = this.state;
 
     chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
       const wordsMap = result[LOCAL_STORAGE_KEY][wordsFile];
-      const words = _.times(count, () => wordsMap[roll(dice)]);
+      const words = _.times(numWords, () => wordsMap[roll(dice)]);
 
       this.setState({
         chosenWords: words,
@@ -62,7 +63,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { passphrase, wordsFile } = this.state;
+    const { passphrase, wordsFile, numWords } = this.state;
 
     return (
       <Section>
@@ -87,7 +88,7 @@ class App extends React.Component {
                         onChange={() => this.setState({
                           wordsFile: name,
                           dice,
-                        })}
+                        }, () => this.fetchWords())}
                         checked={wordsFile === name}
                         value={name}
                         key={name}
@@ -97,6 +98,26 @@ class App extends React.Component {
                     );
                   })}
                 </Control>
+              </Field>
+              <Field horizontal={true}>
+                <div className='field-label is-normal'>
+                  <Label htmlFor="numWords">Words</Label>
+                </div>
+                <div className='field-body'>
+                  <Field>
+                    <Control>
+                      <Input 
+                        id="numWords" 
+                        type="number" 
+                        value={numWords.toString()} 
+                        min={1}
+                        onChange={(e) => this.setState({
+                          numWords: e.target.value,
+                        }, () => this.fetchWords())}
+                      />
+                    </Control>
+                  </Field>
+                </div>
               </Field>
             </Columns.Column>
           </Columns>
