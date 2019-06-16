@@ -183,6 +183,11 @@ CopyButton.propTypes = {
   passphrase: PropTypes.string.isRequired,
 };
 
+/*
+ *
+ * Radio is a React wrapper around the Checkradio element in the bulma-extensions package.
+ *
+ */
 function Radio(props) {
   const { name, value, checked, onChange, children } = props;
 
@@ -196,5 +201,8 @@ function Radio(props) {
   );
 }
 
+/*
+ * Inject the React component into the DOM.
+ */
 document.addEventListener(
   'DOMContentLoaded', () => ReactDOM.render(<App />, document.getElementById('app')));
