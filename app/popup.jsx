@@ -29,6 +29,7 @@ class App extends React.Component {
       chosenWords: [],
       passphrase: '',
       numWords: 5,
+      showAdvanced: false,
       wordsFile,
       dice
     };
@@ -63,7 +64,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { passphrase, wordsFile, numWords } = this.state;
+    const { passphrase, wordsFile, numWords, showAdvanced } = this.state;
 
     return (
       <Section>
@@ -81,44 +82,58 @@ class App extends React.Component {
             <Columns.Column>
               <Field>
                 <Control>
-                  {WORD_LISTS.map(({ text, name, dice }) => {
-                    return (
-                      <Radio
-                        name="wordsFile"
-                        onChange={() => this.setState({
-                          wordsFile: name,
-                          dice,
-                        }, () => this.fetchWords())}
-                        checked={wordsFile === name}
-                        value={name}
-                        key={name}
-                      >
-                        {text}
-                      </Radio>
-                    );
-                  })}
+                  <Button fullwidth={true} onClick={() => this.setState((state, props) => {
+                    return {
+                      showAdvanced: !state.showAdvanced,
+                    }
+                  })}>Advanced</Button>
                 </Control>
               </Field>
-              <Field horizontal={true}>
-                <div className='field-label is-normal'>
-                  <Label htmlFor="numWords">Words</Label>
-                </div>
-                <div className='field-body'>
+              {
+                showAdvanced && 
+                <>
                   <Field>
                     <Control>
-                      <Input 
-                        id="numWords" 
-                        type="number" 
-                        value={numWords.toString()} 
-                        min={1}
-                        onChange={(e) => this.setState({
-                          numWords: e.target.value,
-                        }, () => this.fetchWords())}
-                      />
+                      {WORD_LISTS.map(({ text, name, dice }) => {
+                        return (
+                          <Radio
+                            name="wordsFile"
+                            onChange={() => this.setState({
+                              wordsFile: name,
+                              dice,
+                            }, () => this.fetchWords())}
+                            checked={wordsFile === name}
+                            value={name}
+                            key={name}
+                          >
+                            {text}
+                          </Radio>
+                        );
+                      })}
                     </Control>
                   </Field>
-                </div>
-              </Field>
+                  <Field horizontal={true}>
+                    <div className='field-label is-normal'>
+                      <Label htmlFor="numWords">Words</Label>
+                    </div>
+                    <div className='field-body'>
+                      <Field>
+                        <Control>
+                          <Input 
+                            id="numWords" 
+                            type="number" 
+                            value={numWords.toString()} 
+                            min={1}
+                            onChange={(e) => this.setState({
+                              numWords: e.target.value,
+                            }, () => this.fetchWords())}
+                          />
+                        </Control>
+                      </Field>
+                    </div>
+                  </Field>
+                </>
+              }
             </Columns.Column>
           </Columns>
         </Container>
