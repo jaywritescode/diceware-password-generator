@@ -4,7 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { Field, Control, Input, Label } from 'react-bulma-components/lib/components/form';
+import {
+  Field, Control, Input, Label,
+} from 'react-bulma-components/lib/components/form';
 import Section from 'react-bulma-components/lib/components/section';
 import Container from 'react-bulma-components/lib/components/container';
 import Button from 'react-bulma-components/lib/components/button';
@@ -23,15 +25,15 @@ import { roll } from './shared/utils';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
-    const { name: wordsFile, dice, } = WORD_LISTS[0];
+
+    const { name: wordsFile, dice } = WORD_LISTS[0];
     this.state = {
       chosenWords: [],
       passphrase: '',
       numWords: 5,
       showAdvanced: false,
       wordsFile,
-      dice
+      dice,
     };
   }
 
@@ -41,14 +43,14 @@ class App extends React.Component {
 
   /**
    * Choose words at random from the word list.
-   * 
+   *
    * @param {function(string[]):void} callback - the consumer for the randomly chosen words
-   * @param {integer} count - the number of words in the passphrase 
+   * @param {integer} count - the number of words in the passphrase
    */
   fetchWords() {
     const { wordsFile, dice, numWords } = this.state;
 
-    chrome.storage.local.get(LOCAL_STORAGE_KEY, result => {
+    chrome.storage.local.get(LOCAL_STORAGE_KEY, (result) => {
       const wordsMap = result[LOCAL_STORAGE_KEY][wordsFile];
       const words = _.times(numWords, () => wordsMap[roll(dice)]);
 
@@ -64,68 +66,72 @@ class App extends React.Component {
   }
 
   render() {
-    const { passphrase, wordsFile, numWords, showAdvanced } = this.state;
+    const {
+      passphrase, wordsFile, numWords, showAdvanced,
+    } = this.state;
 
     return (
       <Section>
         <Container>
           <PasswordDisplay passphrase={passphrase} />
 
-          <Columns breakpoint='mobile'>
+          <Columns breakpoint="mobile">
             <Columns.Column>
               <Field>
                 <Control>
                   <Button onClick={() => this.fetchWords()}>Get Password</Button>
                 </Control>
-              </Field>  
+              </Field>
             </Columns.Column>
             <Columns.Column>
               <Field>
                 <Control>
-                  <Button fullwidth={true} onClick={() => this.setState((state, props) => {
-                    return {
+                  <Button
+                    fullwidth
+                    onClick={() => this.setState((state, props) => ({
                       showAdvanced: !state.showAdvanced,
-                    }
-                  })}>Advanced</Button>
+                    }))}
+                  >
+Advanced
+                  </Button>
                 </Control>
               </Field>
               {
-                showAdvanced && 
+                showAdvanced
+                && (
                 <>
                   <Field>
                     <Label>Word list</Label>
                     <Control>
-                      {WORD_LISTS.map(({ text, name, dice }) => {
-                        return (
-                          <Radio
-                            name="wordsFile"
-                            onChange={() => this.setState({
-                              wordsFile: name,
-                              dice,
-                            }, () => this.fetchWords())}
-                            checked={wordsFile === name}
-                            value={name}
-                            key={name}
-                          >
-                            {text}
-                          </Radio>
-                        );
-                      })}
+                      {WORD_LISTS.map(({ text, name, dice }) => (
+                        <Radio
+                          name="wordsFile"
+                          onChange={() => this.setState({
+                            wordsFile: name,
+                            dice,
+                          }, () => this.fetchWords())}
+                          checked={wordsFile === name}
+                          value={name}
+                          key={name}
+                        >
+                          {text}
+                        </Radio>
+                      ))}
                     </Control>
                   </Field>
-                  <Field horizontal={true}>
-                    <div className='field-label is-normal'>
+                  <Field horizontal>
+                    <div className="field-label is-normal">
                       <Label htmlFor="numWords">Words</Label>
                     </div>
-                    <div className='field-body'>
+                    <div className="field-body">
                       <Field>
                         <Control>
-                          <Input 
-                            id="numWords" 
-                            type="number" 
-                            value={numWords.toString()} 
+                          <Input
+                            id="numWords"
+                            type="number"
+                            value={numWords.toString()}
                             min={1}
-                            onChange={(e) => this.setState({
+                            onChange={e => this.setState({
                               numWords: e.target.value,
                             }, () => this.fetchWords())}
                           />
@@ -134,6 +140,7 @@ class App extends React.Component {
                     </div>
                   </Field>
                 </>
+                )
               }
             </Columns.Column>
           </Columns>
@@ -153,21 +160,21 @@ function PasswordDisplay(props) {
   const { passphrase } = props;
 
   return (
-    <Field kind='addons'>
+    <Field kind="addons">
       <Control>
-        <Input 
-          type='text' 
-          value={passphrase} 
-          readOnly={true} 
-          id='password'
-          data-test='password-field'
+        <Input
+          type="text"
+          value={passphrase}
+          readOnly
+          id="password"
+          data-test="password-field"
         />
       </Control>
       <Control>
         <CopyButton passphrase={passphrase} />
       </Control>
     </Field>
-  )
+  );
 }
 
 PasswordDisplay.propTypes = {
@@ -184,15 +191,15 @@ function CopyButton(props) {
 
   const handleClick = () => {
     window.navigator.clipboard.writeText(passphrase);
-  }
+  };
 
   return (
-    <Button id='copy' renderAs='a' onClick={handleClick}>
+    <Button id="copy" renderAs="a" onClick={handleClick}>
       <Icon>
         <span className="far fa-copy" />
       </Icon>
     </Button>
-  )
+  );
 }
 
 CopyButton.propTypes = {
@@ -205,7 +212,9 @@ CopyButton.propTypes = {
  *
  */
 function Radio(props) {
-  const { name, value, checked, onChange, children } = props;
+  const {
+    name, value, checked, onChange, children,
+  } = props;
 
   return (
     <>
@@ -221,4 +230,5 @@ function Radio(props) {
  * Inject the React component into the DOM.
  */
 document.addEventListener(
-  'DOMContentLoaded', () => ReactDOM.render(<App />, document.getElementById('app')));
+  'DOMContentLoaded', () => ReactDOM.render(<App />, document.getElementById('app')),
+);

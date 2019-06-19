@@ -35,7 +35,12 @@ module.exports = {
     }, {
       test: /\.jsx$/,
       exclude: /node_modules/,
-      use: ['babel-loader'],
+      use: ['babel-loader', {
+        loader: 'eslint-loader',
+        options: {
+          fix: true
+        },
+      }],
     }, {
       test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
       loader: 'url-loader',
