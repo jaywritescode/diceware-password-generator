@@ -93,6 +93,7 @@ class App extends React.Component {
                 showAdvanced && 
                 <>
                   <Field>
+                    <Label>Word list</Label>
                     <Control>
                       {WORD_LISTS.map(({ text, name, dice }) => {
                         return (
