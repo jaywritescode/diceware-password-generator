@@ -88,7 +88,7 @@ class App extends React.Component {
                 <Control>
                   <Button
                     fullwidth
-                    onClick={() => this.setState((state, props) => ({
+                    onClick={() => this.setState((state) => ({
                       showAdvanced: !state.showAdvanced,
                     }))}
                   >
@@ -226,9 +226,19 @@ function Radio(props) {
   );
 }
 
+Radio.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  children: PropTypes.children,
+};
+
 /*
  * Inject the React component into the DOM.
  */
 document.addEventListener(
-  'DOMContentLoaded', () => ReactDOM.render(<App />, document.getElementById('app')),
+  'DOMContentLoaded', function() { 
+    ReactDOM.render(<App />, document.getElementById('app')); 
+  }
 );
