@@ -92,7 +92,7 @@ class App extends React.Component {
                       showAdvanced: !state.showAdvanced,
                     }))}
                   >
-Advanced
+                    Advanced
                   </Button>
                 </Control>
               </Field>
