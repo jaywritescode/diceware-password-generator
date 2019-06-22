@@ -32,6 +32,7 @@ class App extends React.Component {
       passphrase: '',
       numWords: 5,
       showAdvanced: false,
+      canContainSpaces: true,
       wordsFile,
       dice,
     };
@@ -62,12 +63,18 @@ class App extends React.Component {
   }
 
   transform(words) {
-    return words.join(' ');
+    const { canContainSpaces } = this.state;
+
+    return words.join(canContainSpaces ? ' ' : '');
   }
 
   render() {
     const {
-      passphrase, wordsFile, numWords, showAdvanced,
+      passphrase, 
+      wordsFile, 
+      numWords, 
+      showAdvanced,
+      canContainSpaces,
     } = this.state;
 
     return (
@@ -138,6 +145,17 @@ class App extends React.Component {
                         </Control>
                       </Field>
                     </div>
+                  </Field>
+                  <Field>
+                    <Switch 
+                      name="canContainSpaces" 
+                      checked={canContainSpaces} 
+                      onChange={(e) => this.setState({
+                        canContainSpaces: e.target.checked
+                      }, () => this.fetchWords())}
+                    >
+                      Allow spaces
+                    </Switch>
                   </Field>
                 </>
                 )
@@ -229,6 +247,31 @@ function Radio(props) {
 Radio.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  children: PropTypes.children,
+};
+
+/*
+ *
+ * Switch is a React wrapper around the Switch element in the bulma-extensions package.
+ *
+ */
+function Switch(props) {
+  const {
+    name, checked, children, onChange
+  } = props;
+
+  return (
+    <>
+      <input type="checkbox" name={name} className="switch" checked={checked} onChange={onChange} />
+      <label htmlFor={name}>{children}</label>
+    </>
+  )
+}
+
+Switch.propTypes = {
+  name: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   children: PropTypes.children,
