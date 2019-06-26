@@ -150,9 +150,11 @@ class App extends React.Component {
                     <Switch 
                       name="canContainSpaces" 
                       checked={canContainSpaces} 
-                      onChange={(e) => this.setState({
-                        canContainSpaces: e.target.checked
-                      }, () => this.fetchWords())}
+                      onChange={() => {
+                        this.setState({
+                          canContainSpaces: !canContainSpaces
+                        }, this.fetchWords())
+                      }}
                     >
                       Allow spaces
                     </Switch>
@@ -264,8 +266,8 @@ function Switch(props) {
 
   return (
     <>
-      <input type="checkbox" name={name} className="switch" checked={checked} onChange={onChange} />
-      <label htmlFor={name}>{children}</label>
+      <input type="checkbox" name={name} checked={checked} className="switch" onChange={_.noop} />
+      <label htmlFor={name} onClick={onChange}>{children}</label>
     </>
   )
 }
