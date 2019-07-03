@@ -251,7 +251,7 @@ Radio.propTypes = {
   value: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  children: PropTypes.children,
+  children: PropTypes.node,
 };
 
 /*
@@ -276,7 +276,7 @@ Switch.propTypes = {
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  children: PropTypes.children,
+  children: PropTypes.node,
 };
 
 /*
