@@ -148,32 +148,28 @@ class App extends React.Component {
                       </Field>
                     </div>
                   </Field>
-                  <Field>
-                    <Switch 
-                      name="canContainSpaces" 
-                      checked={canContainSpaces} 
-                      onChange={() => {
-                        this.setState({
-                          canContainSpaces: !canContainSpaces
-                        }, this.fetchWords())
-                      }}
-                    >
-                      Allow spaces
-                    </Switch>
-                  </Field>
-                  <Field>
-                    <Switch
-                      name="mustIncludeDigit"
-                      checked={mustIncludeDigit}
-                      onChange={() => {
-                        this.setState({
-                          mustIncludeDigit: !mustIncludeDigit
-                        }, this.fetchWords())
-                      }}
-                    >
-                      Require digit
-                    </Switch>
-                  </Field>
+                  <Switch 
+                    name="canContainSpaces" 
+                    checked={canContainSpaces} 
+                    onChange={() => {
+                      this.setState((state) => {
+                        return {canContainSpaces: !state.canContainSpaces}
+                      }, this.fetchWords())
+                    }}
+                  >
+                    Allow spaces
+                  </Switch>
+                  <Switch
+                    name="mustIncludeDigit"
+                    checked={mustIncludeDigit}
+                    onChange={() => {
+                      this.setState((state) => {
+                        return {mustIncludeDigit: !state.mustIncludeDigit}
+                      }, this.fetchWords())
+                    }}
+                  >
+                    Require digit
+                  </Switch>                  
                 </>
                 )
               }
@@ -280,10 +276,10 @@ function Switch(props) {
   } = props;
 
   return (
-    <>
+    <Field>
       <input type="checkbox" name={name} checked={checked} className="switch" onChange={_.noop} />
       <label htmlFor={name} onClick={onChange}>{children}</label>
-    </>
+    </Field>
   )
 }
 
