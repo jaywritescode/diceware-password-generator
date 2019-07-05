@@ -33,6 +33,7 @@ class App extends React.Component {
       numWords: 5,
       showAdvanced: false,
       canContainSpaces: true,
+      mustIncludeDigit: false,
       wordsFile,
       dice,
     };
@@ -63,9 +64,9 @@ class App extends React.Component {
   }
 
   transform(words) {
-    const { canContainSpaces } = this.state;
-
-    return words.join(canContainSpaces ? ' ' : '');
+    const { canContainSpaces, mustIncludeDigit } = this.state;
+    
+    return (mustIncludeDigit ? '0' : '') + words.join(canContainSpaces ? ' ' : '');
   }
 
   render() {
@@ -75,6 +76,7 @@ class App extends React.Component {
       numWords, 
       showAdvanced,
       canContainSpaces,
+      mustIncludeDigit,
     } = this.state;
 
     return (
@@ -157,6 +159,19 @@ class App extends React.Component {
                       }}
                     >
                       Allow spaces
+                    </Switch>
+                  </Field>
+                  <Field>
+                    <Switch
+                      name="mustIncludeDigit"
+                      checked={mustIncludeDigit}
+                      onChange={() => {
+                        this.setState({
+                          mustIncludeDigit: !mustIncludeDigit
+                        }, this.fetchWords())
+                      }}
+                    >
+                      Require digit
                     </Switch>
                   </Field>
                 </>
