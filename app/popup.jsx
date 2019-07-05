@@ -34,6 +34,7 @@ class App extends React.Component {
       showAdvanced: false,
       canContainSpaces: true,
       mustIncludeDigit: false,
+      mustIncludeUppercase: false,
       wordsFile,
       dice,
     };
@@ -64,8 +65,12 @@ class App extends React.Component {
   }
 
   transform(words) {
-    const { canContainSpaces, mustIncludeDigit } = this.state;
+    const { canContainSpaces, mustIncludeDigit, mustIncludeUppercase } = this.state;
     
+    if (mustIncludeUppercase) {
+      words[0] = _.upperFirst(words[0])
+    }
+
     return (mustIncludeDigit ? '0' : '') + words.join(canContainSpaces ? ' ' : '');
   }
 
@@ -77,6 +82,7 @@ class App extends React.Component {
       showAdvanced,
       canContainSpaces,
       mustIncludeDigit,
+      mustIncludeUppercase,
     } = this.state;
 
     return (
@@ -169,7 +175,18 @@ class App extends React.Component {
                     }}
                   >
                     Require digit
-                  </Switch>                  
+                  </Switch>
+                  <Switch
+                    name="mustIncludeUppercase"
+                    checked={mustIncludeUppercase}
+                    onChange={() => {
+                      this.setState((state) => {
+                        return {mustIncludeUppercase: !state.mustIncludeUppercase}
+                      }, this.fetchWords())
+                    }}
+                  >
+                    Require uppercase
+                  </Switch>
                 </>
                 )
               }
