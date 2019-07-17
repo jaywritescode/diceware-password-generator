@@ -64,6 +64,11 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Transforms the sequence of chosen words.
+   *
+   * @param {string[]} words
+   */
   transform(words) {
     const { canContainSpaces, mustIncludeDigit, mustIncludeUppercase } = this.state;
     
