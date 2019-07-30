@@ -96,7 +96,7 @@ class App extends React.Component {
           <PasswordDisplay passphrase={passphrase} />
 
           <Columns breakpoint="mobile">
-            <Columns.Column>
+            <Columns.Column size="two-fifths">
               <Field>
                 <Control>
                   <Button onClick={() => this.fetchWords()}>Get Password</Button>
