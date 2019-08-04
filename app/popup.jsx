@@ -99,7 +99,7 @@ class App extends React.Component {
             <Columns.Column size="two-fifths">
               <Field>
                 <Control>
-                  <Button onClick={() => this.fetchWords()}>Get Password</Button>
+                  <Button color="dark" outlined onClick={() => this.fetchWords()}>Get Password</Button>
                 </Control>
               </Field>
             </Columns.Column>
@@ -217,6 +217,7 @@ function PasswordDisplay(props) {
       <Control>
         <Input
           type="text"
+          color="dark"
           value={passphrase}
           readOnly
           id="password"
@@ -247,7 +248,7 @@ function CopyButton(props) {
   };
 
   return (
-    <Button id="copy" renderAs="a" onClick={handleClick}>
+    <Button color="dark" id="copy" renderAs="a" onClick={handleClick}>
       <Icon>
         <span className="far fa-copy" />
       </Icon>
