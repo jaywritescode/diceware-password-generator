@@ -3,7 +3,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -48,12 +47,11 @@ module.exports = {
       loader: 'url-loader',
       options: {
         limit: 8192,
-      } ,
+      },
     }],
   },
   devtool: 'cheap-module-source-map',
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'main.css'
     }),
