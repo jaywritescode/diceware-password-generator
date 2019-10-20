@@ -70,24 +70,32 @@ class App extends React.Component {
    * @param {string[]} words
    */
   transform(words) {
-    const { canContainSpaces, mustIncludeDigit, mustIncludeUppercase } = this.state;
+    const { 
+      canContainSpaces, 
+      mustIncludeDigit, 
+      mustIncludeUppercase,
+      mustIncludeSpecialCharacter,
+    } = this.state;
     
     if (mustIncludeUppercase) {
       words[0] = _.upperFirst(words[0])
     }
 
-    return (mustIncludeDigit ? '0' : '') + words.join(canContainSpaces ? ' ' : '');
+    return (mustIncludeDigit ? '0' : '') + 
+      words.join(canContainSpaces ? ' ' : '') + 
+      (mustIncludeSpecialCharacter ? '!' : '');
   }
 
   render() {
     const {
-      passphrase, 
-      wordsFile, 
-      numWords, 
+      passphrase,
+      wordsFile,
+      numWords,
       showAdvanced,
       canContainSpaces,
       mustIncludeDigit,
       mustIncludeUppercase,
+      mustIncludeSpecialCharacter,
     } = this.state;
 
     return (
@@ -191,6 +199,17 @@ class App extends React.Component {
                     }}
                   >
                     Require uppercase
+                  </Switch>
+                  <Switch
+                    name="mustIncludeSpecialCharacter"
+                    checked={mustIncludeSpecialCharacter}
+                    onChange={() => {
+                      this.setState((state) => {
+                        return {mustIncludeSpecialCharacter: !state.mustIncludeSpecialCharacter}
+                      }, this.fetchWords())
+                    }}
+                  >
+                    Require special character
                   </Switch>
                 </>
                 )
