@@ -1,6 +1,6 @@
 {
   "name": "diceware-password",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a password-creating chrome extension",
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",
