@@ -25,6 +25,10 @@ I bring up all that math because of...
 
 ...websites out in the wild designed by nimrods who insist you include a digit or a capital letter or some other nonsense to make your password "harder to guess". Anyway, there's a switch that capitalizes the first letter of the passphrase and another one that prepends a digit — not a random one, mind you — to the passphrase. You can also switch to the "short" word list (only 6<sup>4</sup> = 1296 words, &approx; 10.3 bits of entropy per word).
 
+## Version 1.0.1: I surrender...
+
+There are still product managers out in the world &mdash; actual live professionals who are paid money to make sure websites are usable &mdash; who haven't realized what a pain in the ass it is to type a non-alphanumeric character on a mobile device and who insist you include one in your password. It's now clear to me that the world will never be a well-designed place, so I added a switch to the password generator that does that. It hurt me so much to type that sentence.
+
 ## Roadmap in my mind
 
 * Clean up the interface.
