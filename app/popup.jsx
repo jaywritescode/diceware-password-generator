@@ -33,6 +33,7 @@ class App extends React.Component {
       numWords: 5,
       showAdvanced: false,
       canContainSpaces: true,
+      capitalizeEachWord: true,
       mustIncludeDigit: false,
       mustIncludeUppercase: false,
       wordsFile,
@@ -72,12 +73,16 @@ class App extends React.Component {
   transform(words) {
     const { 
       canContainSpaces, 
+      capitalizeEachWord,
       mustIncludeDigit, 
       mustIncludeUppercase,
       mustIncludeSpecialCharacter,
     } = this.state;
     
-    if (mustIncludeUppercase) {
+    if (!canContainSpaces && capitalizeEachWord) {
+      words = words.map(_.upperFirst);
+    }
+    else if (mustIncludeUppercase) {
       words[0] = _.upperFirst(words[0])
     }
 
@@ -93,6 +98,7 @@ class App extends React.Component {
       numWords,
       showAdvanced,
       canContainSpaces,
+      capitalizeEachWord,
       mustIncludeDigit,
       mustIncludeUppercase,
       mustIncludeSpecialCharacter,
@@ -178,6 +184,22 @@ class App extends React.Component {
                   >
                     Allow spaces
                   </Switch>
+                  {
+                    !canContainSpaces
+                    && (
+                      <Switch
+                        name="capitalizeEachWord"
+                        checked={capitalizeEachWord}
+                        onChange={() => {
+                          this.setState((state) => {
+                            return {capitalizeEachWord: !state.capitalizeEachWord}
+                          }, this.fetchWords())
+                        }}
+                      >
+                        Capitalize each word
+                      </Switch>
+                    )
+                  }
                   <Switch
                     name="mustIncludeDigit"
                     checked={mustIncludeDigit}
