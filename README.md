@@ -29,6 +29,16 @@ I bring up all that math because of...
 
 There are still product managers out in the world &mdash; actual live professionals who are paid money to make sure websites are usable &mdash; who haven't realized what a pain in the ass it is to type a non-alphanumeric character on a mobile device and who insist you include one in your password. It's now clear to me that the world will never be a well-designed place, so I added a switch to the password generator that does that. It hurt me so much to type that sentence.
 
+## Development
+
+I included a webpack build that sets up a development environment.
+
+~~~sh
+npm run dev
+~~~
+
+The extension isn't packed yet, so the only way to run it in Chrome is by setting the Extensions page to developer mode and then loading the unpacked extension.
+
 ## Roadmap in my mind
 
 * Clean up the interface.
