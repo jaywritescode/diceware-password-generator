@@ -22,7 +22,7 @@ import { roll } from './shared/utils';
  * App is the root component of the popup.html page.
  *
  */
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -314,7 +314,7 @@ function Radio(props) {
   return (
     <>
       <input type="radio" id={value} className="is-checkradio" name={name} checked={checked} onChange={onChange} />
-      <label htmlFor={value}>
+      <label htmlFor={value} style={{fontSize: '0.8rem'}}>
         {children}
       </label>
     </>
@@ -342,7 +342,13 @@ function Switch(props) {
   return (
     <Field>
       <input type="checkbox" name={name} checked={checked} className="switch" onChange={_.noop} />
-      <label htmlFor={name} onClick={onChange}>{children}</label>
+      <label 
+        htmlFor={name} 
+        onClick={onChange}
+        style={{fontSize: '0.8rem'}}
+      >
+        {children}
+      </label>
     </Field>
   )
 }
